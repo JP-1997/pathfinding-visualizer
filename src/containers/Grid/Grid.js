@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import classes from './Grid.module.css';
 import Node from '../../components/Node/Node';
+import Card from "@material-ui/core/Card";
+import { withStyles } from "@material-ui/core/styles";
 
 const START_NODE_ROW = 10;
 const START_NODE_COLUMN = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COLUMN = 35;
+
+const GridWrapper = withStyles({
+    root: {
+        width: "100%",
+        padding: "1vw",
+        marginRight: "1vw"
+    }
+})(Card);
 
 class Grid extends Component {
 
@@ -15,20 +25,32 @@ class Grid extends Component {
             grid: [],
             mouseIsPressed: false
         };
+        this.gridRef = React.createRef();
     }
 
-    componentDidMount() {
-        const grid = getInitialGrid(this.props);
-        this.setState({grid});
+    async componentDidMount() {
+        await this.setGrid();
+        this.gridRef.current.style.height = `${(this.gridRef.current.offsetWidth /
+            this.props.columns) *
+            this.props.rows}px`;
+        window.addEventListener("resize", e => {
+            this.gridRef.current.style.height = `${(this.gridRef.current.offsetWidth /
+                this.props.columns) *
+                this.props.rows}px`;
+        });
     }
+
+    setGrid = async (grid = getInitialGrid(this.props)) => {
+        this.setState({grid});
+    };
 
     loadNodes = () => {
         let nodes = [];
-        for(let i = 0; i < this.props.rows; i++) {
+        for (let i = 0; i < this.props.rows; i++) {
             let currentRow = [];
-            for(let j = 0; j < this.props.columns; j++){
+            for (let j = 0; j < this.props.columns; j++) {
                 currentRow.push(
-                    <Node 
+                    <Node
                         key={i.toString() + "-" + j.toString()}
                         row={this.state.grid[i][j].row}
                         column={this.state.grid[i][j].column}
@@ -41,44 +63,46 @@ class Grid extends Component {
                     />
                 );
             }
-            nodes.push(<tr key={i}>{ currentRow }</tr>)
+            nodes.push(<tr key={i}>{currentRow}</tr>)
         }
         return nodes;
     };
 
-    handleMouseDown(row,column) {
+    handleMouseDown(row, column) {
         const newGrid = getNewGridWithWallToggled(this.state.grid, row, column);
-        this.setState({grid: newGrid, mouseIsPressed: true});
+        this.setState({ grid: newGrid, mouseIsPressed: true });
     }
 
     handleMouseEnter(row, column) {
-        if(!this.state.mouseIsPressed)
+        if (!this.state.mouseIsPressed)
             return;
         const newGrid = getNewGridWithWallToggled(this.state.grid, row, column);
-        this.setState({grid: newGrid});
+        this.setState({ grid: newGrid });
     }
 
     handleMouseUp() {
-        this.setState({mouseIsPressed: false});
+        this.setState({ mouseIsPressed: false });
     }
 
     render() {
-        const {grid, mouseIsPressed} = this.state;
-        if(this.state.grid.length === 0)
+        const { grid, mouseIsPressed } = this.state;
+        if (this.state.grid.length === 0)
             return <div>Loading...</div>
-        return(
-            <table className={classes.grid}>
-                <tbody>{ this.loadNodes() }</tbody>
-            </table>
+        return (
+            <GridWrapper ref={this.gridRef}>
+                <table className={classes.grid}>
+                    <tbody>{this.loadNodes()}</tbody>
+                </table>
+            </GridWrapper>
         );
     }
 }
 
 const getInitialGrid = (props) => {
     const grid = [];
-    for(let row = 0; row < props.rows; row++){
+    for (let row = 0; row < props.rows; row++) {
         const currentRow = [];
-        for(let column = 0; column < props.columns; column++){
+        for (let column = 0; column < props.columns; column++) {
             currentRow.push(createNode(row, column));
         }
         grid.push(currentRow);

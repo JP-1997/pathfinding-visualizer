@@ -3,8 +3,10 @@ import Grid from './containers/Grid/Grid';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
 
+
 const App = () => {
 
+  const gridRef = React.useRef();
   const xs = window.matchMedia("(max-width: 576px)").matches;
   const sm = window.matchMedia("(min-width: 576px)").matches;
   const md = window.matchMedia("(min-width: 768px)").matches;
@@ -33,7 +35,7 @@ const App = () => {
     <div className="app">
       <Layout>
         <div className="content">
-          <Grid rows={getNumberOfRows()} columns={getNumberOfColumns()} />
+          <Grid ref={gridRef} rows={getNumberOfRows()} columns={getNumberOfColumns()} />
         </div>
       </Layout>
     </div>
