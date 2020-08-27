@@ -14,16 +14,16 @@ class Node extends PureComponent {
             onMouseUp,
         } = this.props;
         const extraClassName = isStart
-            ? 'node-start'
+            ? 'nodeStart'
             : isFinish
-            ? 'node-finish'
+            ? 'nodeFinish'
             : isWall
-            ? 'node-wall'
+            ? 'nodeWall'
             : '';
         return (
             <td
                 id={`node-${row}-${column}`}
-                className={`${classes.node} ${extraClassName}`}
+                className={[classes.node, classes[extraClassName]].join(' ')}
                 onMouseDown={() => onMouseDown(row, column)}
                 onMouseEnter={() => onMouseEnter(row, column)}
                 onMouseUp={() => onMouseUp(row, column)}

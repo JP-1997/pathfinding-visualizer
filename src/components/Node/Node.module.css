@@ -1,3 +1,15 @@
 .node {
     padding: 0;
 }
+
+.nodeStart {
+    background-color: green;
+}
+
+.nodeFinish {
+    background-color: red;
+}
+
+.nodeWall {
+    background-color: blueviolet;
+}

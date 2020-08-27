@@ -4,10 +4,10 @@ import Node from '../../components/Node/Node';
 import Card from "@material-ui/core/Card";
 import { withStyles } from "@material-ui/core/styles";
 
-const START_NODE_ROW = 10;
-const START_NODE_COLUMN = 15;
-const FINISH_NODE_ROW = 10;
-const FINISH_NODE_COLUMN = 35;
+const START_NODE_ROW = 20;
+const START_NODE_COLUMN = 4;
+const FINISH_NODE_ROW = 20;
+const FINISH_NODE_COLUMN = 27;
 
 const GridWrapper = withStyles({
     root: {
