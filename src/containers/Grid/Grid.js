@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './Grid.module.css';
 import Node from '../../components/Node/Node';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import Card from "@material-ui/core/Card";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -25,8 +26,20 @@ class Grid extends Component {
             grid: [],
             mouseIsPressed: false
         };
+        // this.nodeRefs = this.getRefs();
         this.gridRef = React.createRef();
     }
+
+    // getRefs = () => {
+    //     let refs = [];
+    //     for(let i = 0; i < this.props.rows; i++) {
+    //         let rowRef = [];
+    //         for(let j = 0; j < this.props.columns; j++)
+    //             rowRef.push(React.createRef());
+    //         refs.push(rowRef);
+    //     }
+    //     return refs;
+    // }
 
     async componentDidMount() {
         await this.setGrid();
@@ -60,6 +73,7 @@ class Grid extends Component {
                         onMouseDown={(row, column) => this.handleMouseDown(row, column)}
                         onMouseEnter={(row, column) => this.handleMouseEnter(row, column)}
                         onMouseUp={(row, column) => this.handleMouseUp()}
+                        // ref={this.nodeRefs[i][j]}
                     />
                 );
             }
@@ -85,9 +99,9 @@ class Grid extends Component {
     }
 
     render() {
-        const { grid, mouseIsPressed } = this.state;
+        // const { grid, mouseIsPressed } = this.state;
         if (this.state.grid.length === 0)
-            return <div>Loading...</div>
+            return <Spinner />;
         return (
             <GridWrapper ref={this.gridRef}>
                 <table className={classes.grid}>
@@ -120,7 +134,7 @@ const createNode = (row, column) => {
         isVisited: false,
         isWall: false,
         previousNode: null,
-    }
+    };
 };
 
 const getNewGridWithWallToggled = (grid, row, column) => {

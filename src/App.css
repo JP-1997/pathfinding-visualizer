@@ -1,0 +1,15 @@
+:root {
+    box-sizing: border-box;
+}
+
+.app {
+    display: flex;
+    flex-direction: column ;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    --margin-top: 7vh;
+    padding: 1vw 1vw 1vw 1vw;
+}

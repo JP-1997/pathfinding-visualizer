@@ -34,10 +34,10 @@ const App = () => {
   return (
     <div className="app">
       <Layout>
+      </Layout>
         <div className="content">
           <Grid ref={gridRef} rows={getNumberOfRows()} columns={getNumberOfColumns()} />
         </div>
-      </Layout>
     </div>
 
   );

@@ -27,9 +27,14 @@ class Node extends PureComponent {
                 onMouseDown={() => onMouseDown(row, column)}
                 onMouseEnter={() => onMouseEnter(row, column)}
                 onMouseUp={() => onMouseUp(row, column)}
+                // ref={this.props.forwardRef}
             ></td>
         );
     }
 }
+
+// export default React.forwardRef((props, ref) => (
+//     <Node {...props} forwardRef={ref} />
+// ));
 
 export default Node;
