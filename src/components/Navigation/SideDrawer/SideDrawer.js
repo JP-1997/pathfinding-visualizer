@@ -1,11 +1,17 @@
 import React from 'react';
 import OrangeRadio from '../../UI/OrangeRadio/OrangeRadio';
-import { List, ListItem, Typography, CardContent, Collapse, FormControlLabel, FormLabel, RadioGroup, Divider } from '@material-ui/core';
-import classes from '*.module.css';
+import { List, ListItem, Typography, CardContent, Collapse, FormControlLabel, FormLabel, RadioGroup, Divider, makeStyles } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+    header: {
+        paddingTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+    },
+}))
 
-
-const Drawer = (props) => {
+const sideDrawer = (props) => {
+    const classes = useStyles();
     return (
         <div>
             <List>
@@ -41,19 +47,19 @@ const Drawer = (props) => {
                                     control={<OrangeRadio />}
                                     label="Euclidean"
                                 />
-                                <FormControlLabel 
+                                <FormControlLabel
                                     size="small"
                                     value="manhatten"
                                     control={<OrangeRadio />}
                                     label="Manhatten"
                                 />
-                                <FormControlLabel 
+                                <FormControlLabel
                                     size="small"
                                     value="chebyshev"
                                     control={<OrangeRadio />}
                                     label="Chebyshev"
                                 />
-                                <FormControlLabel 
+                                <FormControlLabel
                                     size="small"
                                     value="octile"
                                     control={<OrangeRadio />}
@@ -115,7 +121,7 @@ const Drawer = (props) => {
                         handleMazeItemClick(0);
                     }}
                 >
-                   Kruskal 
+                    Kruskal
                 </ListItem>
                 <ListItem
                     button
@@ -125,7 +131,7 @@ const Drawer = (props) => {
                         handleMazeItemClick(1);
                     }}
                 >
-                   Prim 
+                    Prim
                 </ListItem>
                 <ListItem
                     button
@@ -135,11 +141,11 @@ const Drawer = (props) => {
                         handleMazeItemClick(2);
                     }}
                 >
-                   Recursive Division 
+                    Recursive Division
                 </ListItem>
             </List>
         </div>
     );
 };
 
-export default Drawer;
+export default sideDrawer;
