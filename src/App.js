@@ -33,10 +33,16 @@ const App = () => {
 
   return (
     <div className="app">
-      <Layout>
-      </Layout>
+      <Layout />
         <div className="content">
           <Grid ref={gridRef} rows={getNumberOfRows()} columns={getNumberOfColumns()} />
+          <div className="data">
+            <div className="dataContent">
+              <div>Number of nodes visited......</div>
+              <div>Length of Shortestpath......</div>
+            </div>
+            <div>AlgoInfo......</div>
+          </div>
         </div>
     </div>
 

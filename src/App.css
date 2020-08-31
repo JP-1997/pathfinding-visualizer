@@ -13,3 +13,14 @@
     --margin-top: 7vh;
     padding: 1vw 1vw 1vw 1vw;
 }
+
+.data {
+    width: 40%;
+    height: auto;
+}
+
+.dataContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
