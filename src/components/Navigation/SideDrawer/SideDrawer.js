@@ -8,9 +8,9 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(1),
         paddingBottom: theme.spacing(1),
     },
-}))
+}));
 
-const sideDrawer = (props) => {
+const SideDrawer = (props) => {
     const classes = useStyles();
     return (
         <div>
@@ -20,27 +20,27 @@ const sideDrawer = (props) => {
                 </Typography>
                 <ListItem
                     button
-                    disabled={anim}
-                    selected={algo === 0}
+                    disabled={props.anim}
+                    selected={props.algo === 0}
                     onClick={(event) => {
-                        handleAlgoClick(0);
+                        props.algoClicked(0);
                     }}
                 >
                     Dijkstra
                 </ListItem>
                 <ListItem
                     button
-                    selected={algo === 1}
-                    disabled={anim}
+                    selected={props.algo === 1}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleAlgoClick(1);
+                        props.algoClicked(1);
                     }}
                 >
                     A*
-                    <Collapse in={algo === 1} timeout="auto" unmountOnExit>
+                    <Collapse in={props.algo === 1} timeout="auto" unmountOnExit>
                         <CardContent>
                             <FormLabel>Heuristic</FormLabel>
-                            <RadioGroup value={heuristic[1]} onChange={handleHeuristicChange}>
+                            <RadioGroup value={props.heuristic[1]} onChange={props.heuristicChanged}>
                                 <FormControlLabel
                                     size="small"
                                     value="euclidean"
@@ -71,40 +71,40 @@ const sideDrawer = (props) => {
                 </ListItem>
                 <ListItem
                     button
-                    selected={algo === 2}
-                    disabled={anim}
+                    selected={props.algo === 2}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleAlgoClick(2);
+                        props.algoClicked(2);
                     }}
                 >
                     Jump Point Search
                 </ListItem>
                 <ListItem
                     button
-                    selected={algo === 3}
-                    disabled={anim}
+                    selected={props.algo === 3}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleAlgoClick(3);
+                        props.algoClicked(3);
                     }}
                 >
                     Greedy Best-first Search
                 </ListItem>
                 <ListItem
                     button
-                    selected={algo === 4}
-                    disabled={anim}
+                    selected={props.algo === 4}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleAlgoClick(4);
+                        props.algoClicked(4);
                     }}
                 >
                     Breadth-first Search
                 </ListItem>
                 <ListItem
                     button
-                    selected={algo === 5}
-                    disabled={anim}
+                    selected={props.algo === 5}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleAlgoClick(5);
+                        props.algoClicked(5);
                     }}
                 >
                     Depth-first Search
@@ -115,30 +115,30 @@ const sideDrawer = (props) => {
                 </Typography>
                 <ListItem
                     button
-                    selected={maze === 0}
-                    disabled={anim}
+                    selected={props.maze === 0}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleMazeItemClick(0);
+                        props.mazeItemClicked(0);
                     }}
                 >
                     Kruskal
                 </ListItem>
                 <ListItem
                     button
-                    selected={maze === 1}
-                    disabled={anim}
+                    selected={props.maze === 1}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleMazeItemClick(1);
+                        props.mazeItemClicked(1);
                     }}
                 >
                     Prim
                 </ListItem>
                 <ListItem
                     button
-                    selected={maze === 2}
-                    disabled={anim}
+                    selected={props.maze === 2}
+                    disabled={props.anim}
                     onClick={(event) => {
-                        handleMazeItemClick(2);
+                        props.mazeItemClicked(2);
                     }}
                 >
                     Recursive Division
@@ -148,4 +148,4 @@ const sideDrawer = (props) => {
     );
 };
 
-export default sideDrawer;
+export default SideDrawer;

@@ -19,50 +19,54 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const classes = useStyles();
 
-const toolbar = (props) => (
-    <div className={classes.titlebar}>
-        <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-        >
-            <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-            Pathfinding Visualizer
+const Toolbar = (props) => {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.titlebar}>
+            <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={props.drawerToggleClicked}
+                className={classes.menuButton}
+            >
+                <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+                Pathfinding Visualizer
         </Typography>
-        <Button 
-            className={classes.toolButton}
-            variant="text"
-            disableElevation
-            onClick={() => props.visualize()}
-            disabled={anim}
-        >
-            Visualize
+            <Button
+                className={classes.toolButton}
+                variant="text"
+                disableElevation
+                onClick={() => props.visualize()}
+                disabled={props.anim}
+            >
+                Visualize
         </Button>
-        <Button 
-            className={classes.toolButton}
-            variant="text"
-            disableElevation
-            onClick={() => props.clearGrid()}
-            disabled={anim}
-        >
-            Clear Board
+            <Button
+                className={classes.toolButton}
+                variant="text"
+                disableElevation
+                onClick={() => props.clearGrid()}
+                disabled={props.anim}
+            >
+                Clear Board
         </Button>
-        <Button 
-            className={classes.toolButton}
-            variant="text"
-            disableElevation
-            onClick={() => props.visualizeMaze(animateMaze)}
-            disabled={anim}
-        >
-            Add Maze
+            <Button
+                className={classes.toolButton}
+                variant="text"
+                disableElevation
+                onClick={() => props.visualizeMaze(props.animateMaze)}
+                disabled={props.anim}
+            >
+                Add Maze
         </Button>
-    </div>
-);
+        </div>
 
-export default toolbar;
+    );
+};
+
+export default Toolbar;
