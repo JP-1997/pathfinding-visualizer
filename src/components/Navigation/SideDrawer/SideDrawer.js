@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideDrawer = (props) => {
+
+    const { heuristic } = props;
+
     const classes = useStyles();
     return (
         <div>
@@ -40,7 +43,7 @@ const SideDrawer = (props) => {
                     <Collapse in={props.algo === 1} timeout="auto" unmountOnExit>
                         <CardContent>
                             <FormLabel>Heuristic</FormLabel>
-                            <RadioGroup value={props.heuristic[1]} onChange={props.heuristicChanged}>
+                            <RadioGroup value={heuristic[1]} onChange={props.heuristicChanged}>
                                 <FormControlLabel
                                     size="small"
                                     value="euclidean"

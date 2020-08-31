@@ -3,6 +3,8 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import classes from './Layout.module.css';
 import { CssBaseline, AppBar, Hidden, SwipeableDrawer, Drawer, makeStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { selectAlgo, allowDiag, changeHeuristic, selectMaze, animateMaze } from '../../store/actions';
 
 const drawerWidth = 275;
 
@@ -69,13 +71,13 @@ const Layout = (props) => {
         selectMaze(index);
     };
 
-    const drawer = <SideDrawer algoClicked={handleAlgoClick} mazeItemClicked={handleMazeItemClick} heuristicChanged={handleHeuristicChange} />;
+    const drawer = <SideDrawer algoClicked={handleAlgoClick} mazeItemClicked={handleMazeItemClick} heuristicChanged={handleHeuristicChange} {...props}/>;
 
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar drawerToggleClicked={handleDrawerToggle} />
+                <Toolbar drawerToggleClicked={handleDrawerToggle} {...props} />
             </AppBar>
             <nav className={classes.drawer}>
                 <Hidden smUp implementation="css">
@@ -114,4 +116,8 @@ const Layout = (props) => {
     );
 }
 
-export default Layout;
+const mapStateToProps = (state) => {
+    return state;
+};
+
+export default connect(mapStateToProps, { selectAlgo, allowDiag, changeHeuristic, selectMaze, animateMaze })(Layout);
