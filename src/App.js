@@ -4,6 +4,7 @@ import './App.css';
 import Layout from './hoc/Layout/Layout';
 import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-ui/core';
 import Visited from './components/Visited/Visited';
+import ShortestPath from './components/ShortestPath/ShortestPath';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -73,7 +74,7 @@ const App = () => {
           <div className="data">
             <div className="dataContent">
               <Visited rows={getNumberOfRows()} columns={getNumberOfColumns} />
-              
+              <ShortestPath rows={getNumberOfRows()} columns={getNumberOfColumns()} />
             </div>
             <div>AlgoInfo......</div>
           </div>
