@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
-import classes from './Layout.module.css';
 import { CssBaseline, AppBar, Hidden, SwipeableDrawer, Drawer, makeStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { selectAlgo, allowDiag, changeHeuristic, selectMaze, animateMaze } from '../../store/actions';
@@ -41,15 +40,8 @@ const Layout = (props) => {
         container,
         algo,
         selectAlgo,
-        diag,
-        allowDiag,
-        heuristic,
         changeHeuristic,
-        maze,
         selectMaze,
-        animMaze,
-        animateMaze,
-        anim,
     } = props;
 
     const classes = useStyles();
@@ -77,7 +69,7 @@ const Layout = (props) => {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar drawerToggleClicked={handleDrawerToggle} {...props} />
+                <Toolbar drawerToggleClicked={handleDrawerToggle} {...props } />
             </AppBar>
             <nav className={classes.drawer}>
                 <Hidden smUp implementation="css">
