@@ -1,5 +1,5 @@
 import React from 'react';
-import OrangeRadio from '../../UI/OrangeRadio/OrangeRadio';
+import PurpleRadio from '../../UI/PurpleRadio/PurpleRadio';
 import { List, ListItem, Typography, CardContent, Collapse, FormControlLabel, FormLabel, RadioGroup, Divider, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,25 +47,25 @@ const SideDrawer = (props) => {
                                 <FormControlLabel
                                     size="small"
                                     value="euclidean"
-                                    control={<OrangeRadio />}
+                                    control={<PurpleRadio />}
                                     label="Euclidean"
                                 />
                                 <FormControlLabel
                                     size="small"
                                     value="manhatten"
-                                    control={<OrangeRadio />}
+                                    control={<PurpleRadio />}
                                     label="Manhatten"
                                 />
                                 <FormControlLabel
                                     size="small"
                                     value="chebyshev"
-                                    control={<OrangeRadio />}
+                                    control={<PurpleRadio />}
                                     label="Chebyshev"
                                 />
                                 <FormControlLabel
                                     size="small"
                                     value="octile"
-                                    control={<OrangeRadio />}
+                                    control={<PurpleRadio />}
                                     label="Octile"
                                 />
                             </RadioGroup>

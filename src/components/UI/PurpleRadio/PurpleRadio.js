@@ -1,14 +1,14 @@
 import React from 'react';
 import { withStyles, Radio } from '@material-ui/core';
 
-const OrangeRadio = withStyles({
+const PurpleRadio = withStyles({
     root: {
         color: "",
         "&$checked": {
-            color: "#f4511e",
+            color: "#6D00BD",
         },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
-export default OrangeRadio;
+export default PurpleRadio;
