@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
+
+
 const Layout = (props) => {
 
 
@@ -46,6 +48,12 @@ const Layout = (props) => {
 
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const [sliderValue, setSliderValue] = React.useState(30);
+
+    const handleSliderChange = (event, newValue) => {
+      setSliderValue(newValue);
+    };
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -69,7 +77,7 @@ const Layout = (props) => {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar drawerToggleClicked={handleDrawerToggle} {...props } />
+                <Toolbar drawerToggleClicked={handleDrawerToggle} sliderChanged={handleSliderChange} {...props } />
             </AppBar>
             <nav className={classes.drawer}>
                 <Hidden smUp implementation="css">

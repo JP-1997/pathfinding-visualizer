@@ -1,8 +1,11 @@
 import React from 'react';
-import { IconButton, Typography, Button, makeStyles } from '@material-ui/core';
+import { IconButton, Typography, Button, makeStyles, Slider } from '@material-ui/core';
 import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles((theme) => ({
+    slider: {
+        width: 200,
+    },
     title: {
         display: "none",
         [theme.breakpoints.up("sm")]: {
@@ -64,6 +67,14 @@ const Toolbar = (props) => {
             >
                 Add Maze
         </Button>
+            <div className={classes.toolButton}>
+                SPEED  
+            <Slider
+                    className={classes.slider}
+                    value={props.sliderValue}
+                    onChange={props.sliderChanged}
+                    aria-labelledby="continuous-slider" />
+            </div>
         </div>
 
     );

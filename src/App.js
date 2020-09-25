@@ -10,14 +10,14 @@ const appTheme = createMuiTheme({
   palette: {
     type: "dark",
     background: {
-      default: "#050507",
-      paper: "#484345",
+      default: "#050506",
+      paper: "#272626",
     },
-    divider: "#dd2c00",
+    divider: "#bc72f3",
     action: {
-      hover: "#661ff8",
-      selected: "#4819a9",
-      active: "#e64a19",
+      hover: "#DDB3FC",
+      selected: "#B366F2",
+      active: "#B455F9",
     },
   },
   overrides: {
