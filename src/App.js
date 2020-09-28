@@ -32,8 +32,8 @@ const appTheme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((appTheme) => ({
-  toolbar: appTheme.mixins.toolbar,
+const useStyles = makeStyles((theme) => ({
+  toolbar: theme.mixins.toolbar,
 }));
 
 const App = () => {

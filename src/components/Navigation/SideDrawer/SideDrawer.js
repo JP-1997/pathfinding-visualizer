@@ -33,8 +33,8 @@ const SideDrawer = (props) => {
                 </ListItem>
                 <ListItem
                     button
-                    selected={props.algo === 1}
                     disabled={props.anim}
+                    selected={props.algo === 1}
                     onClick={(event) => {
                         props.algoClicked(1);
                     }}
@@ -84,8 +84,8 @@ const SideDrawer = (props) => {
                 </ListItem>
                 <ListItem
                     button
-                    selected={props.algo === 3}
                     disabled={props.anim}
+                    selected={props.algo === 3}
                     onClick={(event) => {
                         props.algoClicked(3);
                     }}

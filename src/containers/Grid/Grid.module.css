@@ -5,7 +5,8 @@
 }
 
 .grid td {
-    border: 0.1px solid rgba(7, 7, 7, 0.13);
+    /* border: 0.1px solid rgba(7, 7, 7, 0.13); */
+    border: 0.1px solid rgba(186, 90, 255, 0.15);
     width: 1fr;
     height: 1fr;
     padding: 0;

@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
     toolButton: {
         marginRight: "1vw",
     },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up("md")]: {
+            display: "none",
+        },
+    },
 }));
 
 
@@ -39,7 +45,7 @@ const Toolbar = (props) => {
             </IconButton>
             <Typography variant="h6" className={classes.title}>
                 Pathfinding Visualizer
-        </Typography>
+            </Typography>
             <Button
                 className={classes.toolButton}
                 variant="text"
@@ -48,7 +54,7 @@ const Toolbar = (props) => {
                 disabled={props.anim}
             >
                 Visualize
-        </Button>
+            </Button>
             <Button
                 className={classes.toolButton}
                 variant="text"
@@ -57,7 +63,7 @@ const Toolbar = (props) => {
                 disabled={props.anim}
             >
                 Clear Board
-        </Button>
+            </Button>
             <Button
                 className={classes.toolButton}
                 variant="text"
@@ -66,9 +72,9 @@ const Toolbar = (props) => {
                 disabled={props.anim}
             >
                 Add Maze
-        </Button>
+            </Button>
             <div className={classes.toolButton}>
-                SPEED  
+                SPEED
             <Slider
                     className={classes.slider}
                     value={props.sliderValue}
