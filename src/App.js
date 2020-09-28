@@ -68,7 +68,17 @@ const App = () => {
     <ThemeProvider theme={appTheme}>
       <div className={classes.toolbar} />
       <div className="app">
-        <Layout />
+        <Layout 
+          visualize={() => {
+            gridRef.current.visualize();
+          }}
+          clearGrid={() => {
+            gridRef.current.clearGrid();
+          }}
+          addMaze={() => {
+            gridRef.current.addMaze();
+          }}
+        />
         <div className="content">
           <Grid ref={gridRef} rows={getNumberOfRows()} columns={getNumberOfColumns()} />
           <div className="data">

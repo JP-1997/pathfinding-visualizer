@@ -183,6 +183,10 @@ class Grid extends Component {
         return newGrid;
     };
 
+    clearGrid= () => {
+        this.setGrid();
+    };
+
     render() {
         // const { grid, mouseIsPressed } = this.state;
         if (this.state.grid.length === 0)
