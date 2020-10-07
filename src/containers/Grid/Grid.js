@@ -6,6 +6,12 @@ import Card from "@material-ui/core/Card";
 import { connect } from 'react-redux';
 import { withStyles } from "@material-ui/core/styles";
 import { setAnimating, setVisited, setShortest } from '../../store/actions';
+import dijkstra from '../../algorithms/dijkstra';
+import astar from '../../algorithms/astar';
+import jumpPointSearch from '../../algorithms/jumpPointSearch';
+import greedyBestFirstSearch from '../../algorithms/greedyBestFirstSearch';
+import breadthFirstSearch from '../../algorithms/breadthFirstSearch';
+import depthFirstSearch from '../../algorithms/depthFirstSearch';
 
 let START_NODE_ROW = 20;
 let START_NODE_COLUMN = 4;
@@ -13,6 +19,9 @@ let FINISH_NODE_ROW = 20;
 let FINISH_NODE_COLUMN = 27;
 let startIsSelected = false;
 let finishIsSelected = false;
+let startNode = { START_NODE_ROW, START_NODE_COLUMN };
+let finishNode = { FINISH_NODE_ROW, FINISH_NODE_COLUMN };
+let isAnimated = false;
 
 
 const GridWrapper = withStyles({
@@ -194,7 +203,7 @@ class Grid extends Component {
         let grid = this.state.grid;
         await this.setGrid(grid);
         this.clearVisited(grid);
-        const response = await this.getResponseFromAlgo(grid, startNode, endNode);
+        const response = await this.getResponseFromAlgo(grid, startNode, finishNode);
         const { visitedNodes, shortestPath } = response;
         visitedNodes.shift();
         shortestPath.shift();
@@ -207,26 +216,26 @@ class Grid extends Component {
         this.animate(visitedNodes, shortestPath, grid);
     };
 
-    getResponseFromAlgo = (grid, startNode, endNode) => {
+    getResponseFromAlgo = (grid, startNode, finishNode) => {
         let response;
         switch (this.props.algo) {
             case 0:
-                response = dijkstra(grid, startNode, endNode, this.props.diag);
+                response = dijkstra(grid, startNode, finishNode, this.props.diag);
                 break;
             case 1:
-                response = astar(grid, startNode, endNode, this.props.heuristic[1], this.props.diag);
+                response = astar(grid, startNode, finishNode, this.props.heuristic[1], this.props.diag);
                 break;
             case 2:
-                response = jumpPointSearch(grid, startNode, endNode);
+                response = jumpPointSearch(grid, startNode, finishNode);
                 break;
             case 3:
-                response = greedyBestFirstSearch(grid, startNode, endNode);
+                response = greedyBestFirstSearch(grid, startNode, finishNode);
                 break;
             case 4:
-                response = breadthFirstSearch(grid, startNode, endNode);
+                response = breadthFirstSearch(grid, startNode, finishNode);
                 break;
             case 5:
-                response = depthFirstSearch(grid, startNode, endNode);
+                response = depthFirstSearch(grid, startNode, finishNode);
                 break;
             default:
                 break;
