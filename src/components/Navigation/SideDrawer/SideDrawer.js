@@ -1,6 +1,8 @@
 import React from 'react';
 import PurpleRadio from '../../UI/PurpleRadio/PurpleRadio';
 import { List, ListItem, Typography, CardContent, Collapse, FormControlLabel, FormLabel, RadioGroup, Divider, makeStyles } from '@material-ui/core';
+import PurpleSwitch from '../../UI/PurpleSwitch/PurpleSwitch';
+import { allowDiag } from '../../../store/actions';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -12,12 +14,25 @@ const useStyles = makeStyles((theme) => ({
 
 const SideDrawer = (props) => {
 
-    const { heuristic } = props;
+    const { diag, anim, allowDiag, heuristic } = props;
 
     const classes = useStyles();
     return (
         <div>
             <List>
+                <ListItem>
+                    <FormControlLabel 
+                        control={
+                            <PurpleSwitch
+                                checked={diag}
+                                disabled={anim}
+                                onChange={() => allowDiag(!diag)}
+                                value="allowDiagonals"
+                            />
+                        }
+                        label="Allow Diagonals"
+                    />
+                </ListItem>
                 <Typography variant="h6" className={classes.header}>
                     Algorithms
                 </Typography>
