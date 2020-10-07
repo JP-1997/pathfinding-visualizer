@@ -17,6 +17,10 @@ class Node extends PureComponent {
             ? 'nodeStart'
             : isFinish
             ? 'nodeFinish'
+            : this.props.isShortestPath
+            ? 'shortestPath'
+            : this.props.isVisited
+            ? 'visited'
             : isWall
             ? 'nodeWall'
             : '';
@@ -27,14 +31,12 @@ class Node extends PureComponent {
                 onMouseDown={() => onMouseDown(row, column)}
                 onMouseEnter={() => onMouseEnter(row, column)}
                 onMouseUp={() => onMouseUp(row, column)}
-                // ref={this.props.forwardRef}
+                ref={this.props.forwardRef}
             ></td>
         );
     }
 }
 
-// export default React.forwardRef((props, ref) => (
-//     <Node {...props} forwardRef={ref} />
-// ));
-
-export default Node;
+export default React.forwardRef((props, ref) => (
+    <Node {...props} forwardRef={ref} />
+));

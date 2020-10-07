@@ -1,3 +1,9 @@
+:root {
+    --visited: #ef6c00;
+    --shortest: white;
+    --transition: #ffcc80;
+}
+
 .node {
     padding: 0;
 }
@@ -12,4 +18,13 @@
 
 .nodeWall {
     background-color: blueviolet;
+}
+
+.shortestPath {
+    background-image: linear-gradient(var(--shortest), var(--shortest));
+    background-color: var(--visited);
+}
+
+.visited {
+    background-color: var(--visited);
 }
