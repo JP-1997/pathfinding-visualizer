@@ -3,7 +3,9 @@ import classes from './Grid.module.css';
 import Node from '../../components/Node/Node';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Card from "@material-ui/core/Card";
+import { connect } from 'react-redux';
 import { withStyles } from "@material-ui/core/styles";
+import { setAnimating, setVisited, setShortest } from '../../store/actions';
 
 let START_NODE_ROW = 20;
 let START_NODE_COLUMN = 4;
@@ -183,8 +185,109 @@ class Grid extends Component {
         return newGrid;
     };
 
-    clearGrid= () => {
+    clearGrid = () => {
         this.setGrid();
+    };
+
+    visualize = async () => {
+        this.props.setAnimating(true);
+        let grid = this.state.grid;
+        await this.setGrid(grid);
+        this.clearVisited(grid);
+        const response = await this.getResponseFromAlgo(grid, startNode, endNode);
+        const { visitedNodes, shortestPath } = response;
+        visitedNodes.shift();
+        shortestPath.shift();
+        shortestPath.pop();
+        if(visitedNodes.length === 0 && shortestPath.length === 0) {
+            this.props.setAnimating(false);
+            this.setGrid(grid);
+            return;
+        }
+        this.animate(visitedNodes, shortestPath, grid);
+    };
+
+    getResponseFromAlgo = (grid, startNode, endNode) => {
+        let response;
+        switch (this.props.algo) {
+            case 0:
+                response = dijkstra(grid, startNode, endNode, this.props.diag);
+                break;
+            case 1:
+                response = astar(grid, startNode, endNode, this.props.heuristic[1], this.props.diag);
+                break;
+            case 2:
+                response = jumpPointSearch(grid, startNode, endNode);
+                break;
+            case 3:
+                response = greedyBestFirstSearch(grid, startNode, endNode);
+                break;
+            case 4:
+                response = breadthFirstSearch(grid, startNode, endNode);
+                break;
+            case 5:
+                response = depthFirstSearch(grid, startNode, endNode);
+                break;
+            default:
+                break;
+        }
+        return response;
+    };
+
+    animate = async (visitedNodes, shortestPath, grid) => {
+        let i = 0;
+        let j = 0;
+        const animateVisitedNodes = async () => {
+            if(i === visitedNodes.length) {
+                if(shortestPath.length) requestAnimationFrame(animateShortestPath);
+                else {
+                    isAnimated = true;
+                    this.props.setAnimating(false);
+                    this.setGrid(grid);
+                }
+                return;
+            }
+            const { row, column } = visitedNodes[i];
+            this.nodeRefs[row][column].current.classList.add('visited-anim');
+            ++i;
+            this.props.setVisited(i);
+            requestAnimationFrame(animateVisitedNodes);
+        };
+        const animateShortestPath = () => {
+            if(j === shortestPath.length) {
+                isAnimated = true;
+                this.props.setAnimating(false);
+                this.setGrid(grid);
+                return;
+            }
+            const { row, column } = shortestPath[j];
+            this.nodeRefs[row][column].current.classList.add('shortestPath-anim');
+            ++j;
+            this.props.setShortest(j);
+            requestAnimationFrame(animateShortestPath);
+        };
+        await requestAnimationFrame(animateVisitedNodes);
+    };
+
+    clearVisited = grid => {
+        this.props.setVisited(0);
+        this.props.setShortest(0);
+        grid.forEach(row =>
+          row.forEach(node => {
+              node.isShortestPath = false;
+              node.isVisited = false;
+              this.nodeRefs[node.row][node.col].current.classList.remove("visited");
+              this.nodeRefs[node.row][node.col].current.classList.remove(
+                "shortestPath"
+              );
+              this.nodeRefs[node.row][node.col].current.classList.remove(
+                "visited-anim"
+              );
+              this.nodeRefs[node.row][node.col].current.classList.remove(
+                "shortestPath-anim"
+              );
+          })  
+        );
     };
 
     render() {
@@ -201,10 +304,14 @@ class Grid extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        algo: state.algo,
+        diag: state.diag,
+        heuristic: state.heuristic,
+        maze: state.maze,
+        anim: state.anim
+    };
+};
 
-
-
-
-
-
-export default Grid;
+export default connect(mapStateToProps, { setAnimating, setVisited, setShortest }, null, { forwardRef: true })(Grid);
