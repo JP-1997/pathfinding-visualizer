@@ -19,8 +19,8 @@ let FINISH_NODE_ROW = 20;
 let FINISH_NODE_COLUMN = 27;
 let startIsSelected = false;
 let finishIsSelected = false;
-let startNode = { START_NODE_ROW, START_NODE_COLUMN };
-let finishNode = { FINISH_NODE_ROW, FINISH_NODE_COLUMN };
+let startNode = { row: START_NODE_ROW, column: START_NODE_COLUMN };
+let finishNode = { row: FINISH_NODE_ROW, column: FINISH_NODE_COLUMN };
 let isAnimated = false;
 
 
@@ -40,20 +40,20 @@ class Grid extends Component {
             grid: [],
             mouseIsPressed: false
         };
-        // this.nodeRefs = this.getRefs();
+        this.nodeRefs = this.getRefs();
         this.gridRef = React.createRef();
     }
 
-    // getRefs = () => {
-    //     let refs = [];
-    //     for(let i = 0; i < this.props.rows; i++) {
-    //         let rowRef = [];
-    //         for(let j = 0; j < this.props.columns; j++)
-    //             rowRef.push(React.createRef());
-    //         refs.push(rowRef);
-    //     }
-    //     return refs;
-    // }
+    getRefs = () => {
+        let refs = [];
+        for(let i = 0; i < this.props.rows; i++) {
+            let rowRef = [];
+            for(let j = 0; j < this.props.columns; j++)
+                rowRef.push(React.createRef());
+            refs.push(rowRef);
+        }
+        return refs;
+    }
 
     async componentDidMount() {
         await this.setGrid();
@@ -89,9 +89,10 @@ class Grid extends Component {
             column,
             isStart: row === START_NODE_ROW && column === START_NODE_COLUMN,
             isFinish: row === FINISH_NODE_ROW && column === FINISH_NODE_COLUMN,
-            distance: Infinity,
             isVisited: false,
+            isShortestPath: false,
             isWall: false,
+            distance: Infinity,
             previousNode: null,
         };
     };
@@ -109,10 +110,12 @@ class Grid extends Component {
                         isStart={this.state.grid[i][j].isStart}
                         isFinish={this.state.grid[i][j].isFinish}
                         isWall={this.state.grid[i][j].isWall}
+                        isVisited={this.state.grid[i][j].isVisited}
+                        isShortestPath={this.state.grid[i][j].isShortestPath}
                         onMouseDown={(row, column) => this.handleMouseDown(row, column)}
                         onMouseEnter={(row, column) => this.handleMouseEnter(row, column)}
                         onMouseUp={(row, column) => this.handleMouseUp(row, column)}
-                    // ref={this.nodeRefs[i][j]}
+                        ref={this.nodeRefs[i][j]}
                     />
                 );
             }
@@ -172,6 +175,7 @@ class Grid extends Component {
         const node = newGrid[row][column];
         const newNode = { ...node, isStart: !node.isStart };
         newGrid[row][column] = newNode;
+        startNode = { row, column };
         return newGrid;
     };
 
@@ -180,6 +184,7 @@ class Grid extends Component {
         const node = newGrid[row][column];
         const newNode = { ...node, isFinish: !node.isFinish };
         newGrid[row][column] = newNode;
+        finishNode = { row, column };
         return newGrid;
     }
 
@@ -203,6 +208,7 @@ class Grid extends Component {
         let grid = this.state.grid;
         await this.setGrid(grid);
         this.clearVisited(grid);
+        console.log("[startNode] " + startNode.row + startNode.column);
         const response = await this.getResponseFromAlgo(grid, startNode, finishNode);
         const { visitedNodes, shortestPath } = response;
         visitedNodes.shift();
@@ -285,14 +291,14 @@ class Grid extends Component {
           row.forEach(node => {
               node.isShortestPath = false;
               node.isVisited = false;
-              this.nodeRefs[node.row][node.col].current.classList.remove("visited");
-              this.nodeRefs[node.row][node.col].current.classList.remove(
+              this.nodeRefs[node.row][node.column].current.classList.remove("visited");
+              this.nodeRefs[node.row][node.column].current.classList.remove(
                 "shortestPath"
               );
-              this.nodeRefs[node.row][node.col].current.classList.remove(
+              this.nodeRefs[node.row][node.column].current.classList.remove(
                 "visited-anim"
               );
-              this.nodeRefs[node.row][node.col].current.classList.remove(
+              this.nodeRefs[node.row][node.column].current.classList.remove(
                 "shortestPath-anim"
               );
           })  
