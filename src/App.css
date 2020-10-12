@@ -37,3 +37,25 @@
         flex-direction: row;
     }
 }
+
+.nodeWall {
+    background-color: blueviolet;
+  }
+  
+  .visited-anim {
+    animation: onvisit 0.5s;
+    background-color: var(--visited);
+  }
+  .visited {
+    background-color: var(--visited);
+  }
+  .shortest-path-anim {
+    background-color: var(--visited);
+    background-image: linear-gradient(var(--shortest), var(--shortest));
+    background-position: 50% 50%;
+  }
+  
+  .shortest-path {
+    background-image: linear-gradient(var(--shortest), var(--shortest));
+    background-color: var(--visited);
+  }

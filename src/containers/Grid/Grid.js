@@ -22,7 +22,9 @@ let finishIsSelected = false;
 let startNode = { row: START_NODE_ROW, column: START_NODE_COLUMN };
 let finishNode = { row: FINISH_NODE_ROW, column: FINISH_NODE_COLUMN };
 let isAnimated = false;
+let mouseIsPressed = false;
 
+const wallClass = "nodeWall";
 
 const GridWrapper = withStyles({
     root: {
@@ -37,8 +39,7 @@ class Grid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            grid: [],
-            mouseIsPressed: false
+            grid: []
         };
         this.nodeRefs = this.getRefs();
         this.gridRef = React.createRef();
@@ -67,7 +68,7 @@ class Grid extends Component {
         });
     }
 
-    setGrid = async (grid = this.getInitialGrid(this.props)) => {
+    setGrid = async (grid = this.getInitialGrid()) => {
         this.setState({ grid });
     };
 
@@ -124,35 +125,37 @@ class Grid extends Component {
         return nodes;
     };
 
-    handleMouseDown = async (row, column) => {
+    handleMouseDown = async(row, column) => {
         if (row === START_NODE_ROW && column === START_NODE_COLUMN) {
             startIsSelected = true;
             let newGrid = this.changeStartNode(row, column);
-            this.setState({ grid: newGrid, mouseIsPressed: true });
+            mouseIsPressed = true;
+            this.setState({ grid: newGrid });
             return;
         }
         else if (row === FINISH_NODE_ROW && column === FINISH_NODE_COLUMN) {
             finishIsSelected = true;
             let newGrid = this.changeFinishNode(row, column);
-            this.setState({ grid: newGrid, mouseIsPressed: true });
+            mouseIsPressed = true;
+            this.setState({ grid: newGrid });
             return;
         }
         else {
-            const newGrid = this.getNewGridWithWallToggled(this.state.grid, row, column);
-            this.setState({ grid: newGrid, mouseIsPressed: true });
+            mouseIsPressed = true;
+            this.toggleGridWall(row, column);
         }
     }
 
-    handleMouseEnter(row, column) {
-        if (!this.state.mouseIsPressed)
+    handleMouseEnter = (row, column) => {
+        if (!mouseIsPressed)
             return;
         if (startIsSelected || finishIsSelected)
             return;
-        const newGrid = this.getNewGridWithWallToggled(this.state.grid, row, column);
-        this.setState({ grid: newGrid });
+        this.toggleGridWall(row, column);
+        // this.setState({ grid: newGrid });
     }
 
-    handleMouseUp(row, column) {
+    handleMouseUp = (row, column) => {
         if (startIsSelected) {
             let newGrid = this.changeStartNode(row, column);
             startIsSelected = false;
@@ -167,7 +170,8 @@ class Grid extends Component {
             FINISH_NODE_COLUMN = column;
             this.setState({ grid: newGrid });
         }
-        this.setState({ mouseIsPressed: false });
+        mouseIsPressed = false;
+        this.setGrid(this.state.grid);
     }
 
     changeStartNode = (row, column, grid = this.state.grid) => {
@@ -188,15 +192,16 @@ class Grid extends Component {
         return newGrid;
     }
 
-    getNewGridWithWallToggled = (grid, row, column) => {
-        const newGrid = grid.slice();
-        const node = newGrid[row][column];
-        const newNode = {
-            ...node,
-            isWall: !node.isWall,
-        };
-        newGrid[row][column] = newNode;
-        return newGrid;
+    toggleGridWall = (row, column) => {
+        let grid = this.state.grid;
+        if(grid[row][column].isWall){
+            this.nodeRefs[row][column].current.classList.remove(wallClass);
+            grid[row][column].isWall = false;
+        }
+        else {
+            this.nodeRefs[row][column].current.classList.add(wallClass);
+            grid[row][column].isWall = true;
+        }
     };
 
     clearGrid = () => {

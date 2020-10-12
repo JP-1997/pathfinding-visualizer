@@ -41,6 +41,7 @@ const App = () => {
 
   const gridRef = React.useRef();
   const classes = useStyles();
+  const theme = useTheme();
   const xs = window.matchMedia("(max-width: 576px)").matches;
   const sm = window.matchMedia("(min-width: 576px)").matches;
   const md = window.matchMedia("(min-width: 768px)").matches;
