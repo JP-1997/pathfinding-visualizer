@@ -47,9 +47,9 @@ class Grid extends Component {
 
     getRefs = () => {
         let refs = [];
-        for(let i = 0; i < this.props.rows; i++) {
+        for (let i = 0; i < this.props.rows; i++) {
             let rowRef = [];
-            for(let j = 0; j < this.props.columns; j++)
+            for (let j = 0; j < this.props.columns; j++)
                 rowRef.push(React.createRef());
             refs.push(rowRef);
         }
@@ -125,7 +125,7 @@ class Grid extends Component {
         return nodes;
     };
 
-    handleMouseDown = async(row, column) => {
+    handleMouseDown = async (row, column) => {
         if (row === START_NODE_ROW && column === START_NODE_COLUMN) {
             startIsSelected = true;
             let newGrid = this.changeStartNode(row, column);
@@ -194,7 +194,7 @@ class Grid extends Component {
 
     toggleGridWall = (row, column) => {
         let grid = this.state.grid;
-        if(grid[row][column].isWall){
+        if (grid[row][column].isWall) {
             this.nodeRefs[row][column].current.classList.remove(wallClass);
             grid[row][column].isWall = false;
         }
@@ -205,6 +205,9 @@ class Grid extends Component {
     };
 
     clearGrid = () => {
+        isAnimated = false;
+        this.props.setVisited(0);
+        this.props.setShortest(0);
         this.setGrid();
     };
 
@@ -219,7 +222,7 @@ class Grid extends Component {
         visitedNodes.shift();
         shortestPath.shift();
         shortestPath.pop();
-        if(visitedNodes.length === 0 && shortestPath.length === 0) {
+        if (visitedNodes.length === 0 && shortestPath.length === 0) {
             this.props.setAnimating(false);
             this.setGrid(grid);
             return;
@@ -258,8 +261,8 @@ class Grid extends Component {
         let i = 0;
         let j = 0;
         const animateVisitedNodes = async () => {
-            if(i === visitedNodes.length) {
-                if(shortestPath.length) requestAnimationFrame(animateShortestPath);
+            if (i === visitedNodes.length) {
+                if (shortestPath.length) requestAnimationFrame(animateShortestPath);
                 else {
                     isAnimated = true;
                     this.props.setAnimating(false);
@@ -274,7 +277,7 @@ class Grid extends Component {
             requestAnimationFrame(animateVisitedNodes);
         };
         const animateShortestPath = () => {
-            if(j === shortestPath.length) {
+            if (j === shortestPath.length) {
                 isAnimated = true;
                 this.props.setAnimating(false);
                 this.setGrid(grid);
@@ -293,20 +296,20 @@ class Grid extends Component {
         this.props.setVisited(0);
         this.props.setShortest(0);
         grid.forEach(row =>
-          row.forEach(node => {
-              node.isShortestPath = false;
-              node.isVisited = false;
-              this.nodeRefs[node.row][node.column].current.classList.remove("visited");
-              this.nodeRefs[node.row][node.column].current.classList.remove(
-                "shortestPath"
-              );
-              this.nodeRefs[node.row][node.column].current.classList.remove(
-                "visited-anim"
-              );
-              this.nodeRefs[node.row][node.column].current.classList.remove(
-                "shortestPath-anim"
-              );
-          })  
+            row.forEach(node => {
+                node.isShortestPath = false;
+                node.isVisited = false;
+                this.nodeRefs[node.row][node.column].current.classList.remove("visited");
+                this.nodeRefs[node.row][node.column].current.classList.remove(
+                    "shortestPath"
+                );
+                this.nodeRefs[node.row][node.column].current.classList.remove(
+                    "visited-anim"
+                );
+                this.nodeRefs[node.row][node.column].current.classList.remove(
+                    "shortestPath-anim"
+                );
+            })
         );
     };
 

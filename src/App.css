@@ -49,13 +49,22 @@
   .visited {
     background-color: var(--visited);
   }
-  .shortest-path-anim {
+  .shortestPath-anim {
     background-color: var(--visited);
     background-image: linear-gradient(var(--shortest), var(--shortest));
     background-position: 50% 50%;
   }
   
-  .shortest-path {
+  .shortestPath {
     background-image: linear-gradient(var(--shortest), var(--shortest));
     background-color: var(--visited);
+  }
+
+  @keyframes onvisit {
+    0% {
+      background-color: var(--transition);
+    }
+    100% {
+      background-color: var(--visited);
+    }
   }
