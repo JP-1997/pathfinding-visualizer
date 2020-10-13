@@ -21,12 +21,12 @@
     background-color: #000000;
 }
 
-/* .shortestPath {
+.shortestPath {
     animation-name: path;
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-} */
+}
 
 .visited {
     background-color: var(--visited);

@@ -126,6 +126,8 @@ class Grid extends Component {
     };
 
     handleMouseDown = async (row, column) => {
+        if(this.props.anim)
+            return;
         if (row === START_NODE_ROW && column === START_NODE_COLUMN) {
             startIsSelected = true;
             let newGrid = this.changeStartNode(row, column);
@@ -143,6 +145,7 @@ class Grid extends Component {
         else {
             mouseIsPressed = true;
             this.toggleGridWall(row, column);
+            if (isAnimated) this.visualizeRealTime(startNode, finishNode);
         }
     }
 
@@ -152,6 +155,7 @@ class Grid extends Component {
         if (startIsSelected || finishIsSelected)
             return;
         this.toggleGridWall(row, column);
+        if (isAnimated) this.visualizeRealTime(startNode, finishNode);
         // this.setState({ grid: newGrid });
     }
 
@@ -256,6 +260,28 @@ class Grid extends Component {
         return response;
     };
 
+    visualizeRealTime = (sn, en) => {
+        let grid = this.state.grid;
+        this.clearVisited(grid);
+        const { visitedNodes, shortestPath } = this.getResponseFromAlgo(
+            grid,
+            sn,
+            en
+        );
+        this.props.setVisited(visitedNodes.length);
+        this.props.setShortest(shortestPath.length);
+        visitedNodes.shift();
+        shortestPath.shift();
+        shortestPath.pop();
+        visitedNodes.forEach(node => {
+            this.nodeRefs[node.row][node.column].current.classList.add("visited");
+        });
+        shortestPath.forEach(node => {
+            this.nodeRefs[node.row][node.column].current.classList.add("shortestPath");
+        });
+        return { visitedNodes, shortestPath };
+    };
+
     animate = async (visitedNodes, shortestPath, grid) => {
         let i = 0;
         let j = 0;
@@ -313,7 +339,11 @@ class Grid extends Component {
     };
 
     render() {
-        // const { grid, mouseIsPressed } = this.state;
+        if (isAnimated) {
+            const response = this.visualizeRealTime(startNode, finishNode);
+            this.props.setVisited(response.visitedNodes.length);
+            this.props.setShortest(response.shortestPath.length);
+        }
         if (this.state.grid.length === 0)
             return <Spinner />;
         return (
