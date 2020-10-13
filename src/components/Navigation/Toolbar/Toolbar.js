@@ -1,6 +1,9 @@
 import React from 'react';
 import { IconButton, Typography, Button, makeStyles, Slider } from '@material-ui/core';
 import MenuIcon from "@material-ui/icons/Menu";
+import MaterialToolbar from "@material-ui/core/Toolbar";
+import { red } from '@material-ui/core/colors';
+import PurpleSlider from '../../UI/PurpleSlider/PurpleSlider';
 
 const useStyles = makeStyles((theme) => ({
     slider: {
@@ -33,56 +36,64 @@ const Toolbar = (props) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.titlebar}>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={props.drawerToggleClicked}
-                className={classes.menuButton}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-                Pathfinding Visualizer
+        <MaterialToolbar>
+            <div className={classes.titlebar}>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={props.drawerToggleClicked}
+                    className={classes.menuButton}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                    Pathfinding Visualizer
             </Typography>
-            <Button
-                className={classes.toolButton}
-                variant="text"
-                disableElevation
-                onClick={() => props.visualize()}
-                disabled={props.anim}
-            >
-                Visualize
+                <Button
+                    className={classes.toolButton}
+                    variant="text"
+                    disableElevation
+                    onClick={() => props.visualize()}
+                    disabled={props.anim}
+                >
+                    Visualize
             </Button>
-            <Button
-                className={classes.toolButton}
-                variant="text"
-                disableElevation
-                onClick={() => props.clearGrid()}
-                disabled={props.anim}
-            >
-                Clear Board
+                <Button
+                    className={classes.toolButton}
+                    variant="text"
+                    disableElevation
+                    onClick={() => props.clearGrid()}
+                    disabled={props.anim}
+                >
+                    Clear Board
             </Button>
-            <Button
-                className={classes.toolButton}
-                variant="text"
-                disableElevation
-                onClick={() => props.visualizeMaze(props.animateMaze)}
-                disabled={props.anim}
-            >
-                Add Maze
+                <Button
+                    className={classes.toolButton}
+                    variant="text"
+                    disableElevation
+                    onClick={() => props.visualizeMaze(props.animateMaze)}
+                    disabled={props.anim}
+                >
+                    Add Maze
             </Button>
-            <div className={classes.toolButton}>
-                SPEED
-            <Slider
-                    className={classes.slider}
-                    value={props.sliderValue}
-                    onChange={props.sliderChanged}
-                    aria-labelledby="continuous-slider" />
-            </div>
-        </div>
+                <Button
+                    className={classes.toolButton}
+                >
 
+                    SPEED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         {/* <Slider
+                        className={classes.slider}
+                        value={props.sliderValue}
+                        onChange={props.sliderChanged}
+                        aria-labelledby="continuous-slider" /> */}
+
+                        <PurpleSlider />
+
+
+                </Button>
+            </div>
+        </MaterialToolbar>
     );
 };
 
