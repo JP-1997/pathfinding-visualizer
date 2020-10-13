@@ -206,8 +206,7 @@ class Grid extends Component {
 
     clearGrid = () => {
         isAnimated = false;
-        this.props.setVisited(0);
-        this.props.setShortest(0);
+        this.clearVisited(this.state.grid);
         this.setGrid();
     };
 
@@ -216,7 +215,7 @@ class Grid extends Component {
         let grid = this.state.grid;
         await this.setGrid(grid);
         this.clearVisited(grid);
-        console.log("[startNode] " + startNode.row + startNode.column);
+        // console.log("[startNode] " + startNode.row + startNode.column);
         const response = await this.getResponseFromAlgo(grid, startNode, finishNode);
         const { visitedNodes, shortestPath } = response;
         visitedNodes.shift();

@@ -39,7 +39,8 @@
 }
 
 .nodeWall {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
+    background-color: #000000;
   }
   
   .visited-anim {
@@ -50,15 +51,30 @@
     background-color: var(--visited);
   }
   .shortestPath-anim {
-    background-color: var(--visited);
-    background-image: linear-gradient(var(--shortest), var(--shortest));
-    background-position: 50% 50%;
+    animation-name: path;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes path {
+    from {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+    to {
+      background: url(./resources/send.svg);
+      background-size: contain;
+      background-color: rgba(94, 255, 137, 0.8);
+    }
   }
+
   
   .shortestPath {
-    background-image: linear-gradient(var(--shortest), var(--shortest));
-    background-color: var(--visited);
-  }
+    animation-name: path;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
 
   @keyframes onvisit {
     0% {
