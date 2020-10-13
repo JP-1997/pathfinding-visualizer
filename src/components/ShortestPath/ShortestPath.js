@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, LinearProgress, Typography, Card } from '@material-ui/core';
+import { connect } from "react-redux";
 
 const ShortestPathCard = withStyles({
     root: {
@@ -11,7 +12,7 @@ const ShortestPathCard = withStyles({
 
 const ColorLinearProgress = withStyles({
     colorPrimary: {
-        backgroundColor: "orange"
+        backgroundColor: "#B366F2"
     },
     barColorPrimary: {
         backgroundColor: "white"
@@ -23,10 +24,16 @@ const ShortestPath = props => {
     return (
         <ShortestPathCard className="shortestPathCard">
             <Typography variant="h6">Shortest Path</Typography>
-            <Typography variant="h3">....Shortest....</Typography>
+            <Typography variant="h3">{props.shortest}</Typography>
             <ColorLinearProgress variant="determinate" value={progress} />
         </ShortestPathCard>
     );
 };
 
-export default ShortestPath;
+const mapStateToProps = state => {
+    return {
+        shortest: state.shortest
+    };
+};
+
+export default connect(mapStateToProps)(ShortestPath);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, Card, Typography, LinearProgress } from '@material-ui/core';
+import { connect } from "react-redux";
 
 const VisitedWrapper = withStyles({
     root: {
@@ -9,17 +10,30 @@ const VisitedWrapper = withStyles({
     }
 })(Card);
 
+const ColorLinearProgress = withStyles({
+    colorPrimary: {
+        backgroundColor: "#B366F2"
+    },
+    barColorPrimary: {
+        backgroundColor: "white"
+    }
+})(LinearProgress);
+
 const Visited = props => {
     const progress = (props.visited * 100) / (props.rows * props.columns);
     return (
         <VisitedWrapper>
             <Typography variant="h6">Visited</Typography>
-            <Typography variant="h3"><div>.......visited.........</div></Typography>
-            <LinearProgress variant="determinate" value={progress} />
+            <Typography variant="h3">{props.visited}</Typography>
+            <ColorLinearProgress variant="determinate" value={progress} />
         </VisitedWrapper>
     );
 };
 
-//Connect with store....
+const mapStateToProps = state => {
+    return {
+        visited: state.visited
+    };
+};
 
-export default Visited;
+export default connect(mapStateToProps)(Visited);
