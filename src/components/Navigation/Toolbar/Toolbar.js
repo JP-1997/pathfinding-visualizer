@@ -1,8 +1,7 @@
 import React from 'react';
-import { IconButton, Typography, Button, makeStyles, Slider } from '@material-ui/core';
+import { IconButton, Typography, Button, makeStyles } from '@material-ui/core';
 import MenuIcon from "@material-ui/icons/Menu";
 import MaterialToolbar from "@material-ui/core/Toolbar";
-import { red } from '@material-ui/core/colors';
 import PurpleSlider from '../../UI/PurpleSlider/PurpleSlider';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
             display: "none",
         },
     },
+    titleDiv: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
 }));
 
 
@@ -47,9 +51,12 @@ const Toolbar = (props) => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                    Pathfinding Visualizer
-            </Typography>
+                <div className={classes.titleDiv}>
+                    <Typography variant="h6" className={classes.title}>
+                        Pathfinding Visualizer
+                    </Typography>
+
+                </div>
                 <Button
                     className={classes.toolButton}
                     variant="text"
@@ -88,7 +95,7 @@ const Toolbar = (props) => {
                         onChange={props.sliderChanged}
                         aria-labelledby="continuous-slider" /> */}
 
-                        <PurpleSlider />
+                    <PurpleSlider />
 
 
                 </Button>

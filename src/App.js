@@ -29,7 +29,7 @@ const appTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "'Karla', sans-serif",
+    fontFamily: "'Rubik', sans-serif",
   },
 });
 
