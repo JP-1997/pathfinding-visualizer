@@ -39,8 +39,8 @@
 }
 
 .nodeWall {
-    /* background-color: blueviolet; */
-    background-color: #000000;
+    background: url(./resources/wall.png);
+    /* background-color: rgba(255, 254, 254, 0.829); */
   }
   
   .visited-anim {

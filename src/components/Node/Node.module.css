@@ -9,16 +9,18 @@
 }
 
 .nodeStart {
-    background-color: green;
+    /* background-color: green; */
+    background: url(../../resources/start.png);
 }
 
 .nodeFinish {
-    background-color: red;
+    /* background-color: red; */
+    background: url(../../resources/finish.png);
 }
 
 .nodeWall {
-    /* background-color: blueviolet; */
-    background-color: #000000;
+    background: url(../../resources/wall.png);
+    /* background-color: rgba(245, 245, 245, 0.445); */
 }
 
 .shortestPath {
