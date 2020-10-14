@@ -21,7 +21,7 @@ const SideDrawer = (props) => {
         <div>
             <List>
                 <ListItem>
-                    <FormControlLabel 
+                    <FormControlLabel
                         control={
                             <PurpleSwitch
                                 checked={diag}
@@ -31,6 +31,19 @@ const SideDrawer = (props) => {
                             />
                         }
                         label="Allow Diagonals"
+                    />
+                </ListItem>
+                <ListItem>
+                    <FormControlLabel
+                        control={
+                            <PurpleSwitch
+                                disabled={anim}
+                                checked={props.animMaze}
+                                onChange={() => props.animateMaze(!props.animMaze)}
+                                value="animateMaze"
+                            />
+                        }
+                        label="Animate Maze"
                     />
                 </ListItem>
                 <Typography variant="h6" className={classes.header}>

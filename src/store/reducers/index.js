@@ -21,7 +21,7 @@ const mazeReducer = (maze = 0, action) => {
     return maze;
 };
 
-const animMazeReducer = (animMaze = true, action) => {
+const animMazeReducer = (animMaze = false, action) => {
     if (action.type === "ANIMATE_MAZE") return action.payload;
     return animMaze;
 };

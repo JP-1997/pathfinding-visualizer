@@ -93,8 +93,8 @@ class Grid extends Component {
             isVisited: false,
             isShortestPath: false,
             isWall: false,
-            distance: Infinity,
-            previousNode: null,
+            // distance: Infinity,
+            // previousNode: null,
         };
     };
 

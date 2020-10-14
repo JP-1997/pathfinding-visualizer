@@ -20,7 +20,7 @@ const dijkstra = (grid, startNode, finishNode, allowDiag) => {
   while (pq.length) {
     const node = pq.dequeue();
     const { row, column } = node;
-    console.log("[Grid]  " + Object.keys(grid[1][1]) + "row column = " + row + column );
+    // console.log("[Grid]  " + Object.keys(grid[1][1]) + "row column = " + row + column );
     if (grid[row][column].isVisited) continue;
     grid[row][column].isVisited = true;
     visitedNodes.push(node);
