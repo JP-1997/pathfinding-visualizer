@@ -12,6 +12,9 @@ import jumpPointSearch from '../../algorithms/jumpPointSearch';
 import greedyBestFirstSearch from '../../algorithms/greedyBestFirstSearch';
 import breadthFirstSearch from '../../algorithms/breadthFirstSearch';
 import depthFirstSearch from '../../algorithms/depthFirstSearch';
+import kruskal from '../../algorithms/kruskal';
+import prim from '../../algorithms/prim';
+import recursiveDivision from '../../algorithms/recursiveDivison';
 
 let START_NODE_ROW = 20;
 let START_NODE_COLUMN = 4;
@@ -126,7 +129,7 @@ class Grid extends Component {
     };
 
     handleMouseDown = async (row, column) => {
-        if(this.props.anim)
+        if (this.props.anim)
             return;
         if (row === START_NODE_ROW && column === START_NODE_COLUMN) {
             startIsSelected = true;
@@ -338,22 +341,94 @@ class Grid extends Component {
         );
     };
 
-    render() {
-        if (isAnimated) {
-            const response = this.visualizeRealTime(startNode, finishNode);
-            this.props.setVisited(response.visitedNodes.length);
-            this.props.setShortest(response.shortestPath.length);
+    addMaze = async () => {
+        await this.clearGrid();
+        let grid = this.state.grid;
+        if (!this.props.animMaze) {
+            this.getResponseFromMaze(grid, this.props.maze);
+            await this.setGrid(grid);
+        } else {
+            this.props.setAnimating(true);
+            await this.setGrid(grid);
+            const {
+                addedWalls,
+                removedWalls,
+                animAddedWalls
+            } = this.getResponseFromMaze(grid);
+            this.animateMaze(addedWalls, removedWalls, grid, animAddedWalls);
         }
-        if (this.state.grid.length === 0)
-            return <Spinner />;
-        return (
-            <GridWrapper ref={this.gridRef}>
-                <table className={classes.grid}>
-                    <tbody>{this.loadNodes()}</tbody>
-                </table>
-            </GridWrapper>
-        );
+    };
+
+    getResponseFromMaze = grid => {
+        switch (this.props.maze) {
+            case 0:
+                return kruskal(grid, this.props.rows, this.props.columns);
+            case 1:
+                return prim(grid, this.props.rows, this.props.columns);
+            case 2:
+                return recursiveDivision(grid, this.props.rows, this.props.columns);
+            default:
+                break;
+        }
+    };
+
+    animateMaze = (addedWalls, removedWalls, grid, animAddedWalls) => {
+        let i = 0;
+        const animateAddedWalls = () => {
+            if (i === addedWalls.length) {
+                if (removedWalls.length) requestAnimationFrame(animateRemovedWalls);
+                else {
+                    this.props.setAnimating(false);
+                    this.setGrid(grid);
+                }
+                return;
+            }
+            const { row, column } = addedWalls[i];
+            this.nodeRefs[row][column].current.classList.add(wallClass);
+            ++i;
+            requestAnimationFrame(animateAddedWalls);
+        };
+        let j = 0;
+        const animateRemovedWalls = () => {
+            if (j === removedWalls.length) {
+                this.props.setAnimating(false);
+                this.setGrid(grid);
+                return;
+            }
+            const { row, column } = removedWalls[j];
+            this.nodeRefs[row][column].current.classList.remove(wallClass);
+            ++j;
+            requestAnimationFrame(animateRemovedWalls);
+        };
+        const showAddedWalls = () => {
+            addedWalls.forEach(node =>
+                this.nodeRefs[node.row][node.column].current.classList.add(wallClass)
+            );
+        };
+        if (animAddedWalls) {
+            requestAnimationFrame(animateAddedWalls);
+        } else {
+            showAddedWalls();
+            requestAnimationFrame(animateRemovedWalls);
+        }
+    };
+
+render() {
+    if (isAnimated) {
+        const response = this.visualizeRealTime(startNode, finishNode);
+        this.props.setVisited(response.visitedNodes.length);
+        this.props.setShortest(response.shortestPath.length);
     }
+    if (this.state.grid.length === 0)
+        return <Spinner />;
+    return (
+        <GridWrapper ref={this.gridRef}>
+            <table className={classes.grid}>
+                <tbody>{this.loadNodes()}</tbody>
+            </table>
+        </GridWrapper>
+    );
+}
 }
 
 const mapStateToProps = state => {
@@ -362,7 +437,8 @@ const mapStateToProps = state => {
         diag: state.diag,
         heuristic: state.heuristic,
         maze: state.maze,
-        anim: state.anim
+        anim: state.anim,
+        animMaze: state.animMaze,
     };
 };
 

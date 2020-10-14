@@ -79,7 +79,7 @@ const Toolbar = (props) => {
                     className={classes.toolButton}
                     variant="text"
                     disableElevation
-                    onClick={() => props.visualizeMaze(props.animateMaze)}
+                    onClick={() => props.addMaze(props.animateMaze)}
                     disabled={props.anim}
                 >
                     Add Maze
