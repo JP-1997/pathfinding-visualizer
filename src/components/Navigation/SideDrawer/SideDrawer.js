@@ -46,6 +46,7 @@ const SideDrawer = (props) => {
                         label="Animate Maze"
                     />
                 </ListItem>
+                <Divider />
                 <Typography variant="h6" className={classes.header}>
                     Algorithms
                 </Typography>
@@ -110,7 +111,7 @@ const SideDrawer = (props) => {
                 >
                     Jump Point Search
                 </ListItem>
-                <ListItem
+                {/* <ListItem
                     button
                     disabled={props.anim}
                     selected={props.algo === 3}
@@ -119,8 +120,8 @@ const SideDrawer = (props) => {
                     }}
                 >
                     Greedy Best-first Search
-                </ListItem>
-                <ListItem
+                </ListItem> */}
+                {/* <ListItem
                     button
                     selected={props.algo === 4}
                     disabled={props.anim}
@@ -129,8 +130,8 @@ const SideDrawer = (props) => {
                     }}
                 >
                     Breadth-first Search
-                </ListItem>
-                <ListItem
+                </ListItem> */}
+                {/* <ListItem
                     button
                     selected={props.algo === 5}
                     disabled={props.anim}
@@ -139,7 +140,7 @@ const SideDrawer = (props) => {
                     }}
                 >
                     Depth-first Search
-                </ListItem>
+                </ListItem> */}
                 <Divider />
                 <Typography variant="h6" className={classes.header}>
                     Mazes

@@ -83,22 +83,10 @@ const Toolbar = (props) => {
                     disabled={props.anim}
                 >
                     Add Maze
-            </Button>
-                <Button
-                    className={classes.toolButton}
-                >
-
-                    SPEED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                         {/* <Slider
-                        className={classes.slider}
-                        value={props.sliderValue}
-                        onChange={props.sliderChanged}
-                        aria-labelledby="continuous-slider" /> */}
-
-                    <PurpleSlider />
-
-
                 </Button>
+
+
+                
             </div>
         </MaterialToolbar>
     );
